@@ -9,10 +9,6 @@ class ControllerType
         this.file = file;
 
         this._script = new vm.Script('"use strict";\n' + fs.readFileSync(file));
-
-        let tempVM = this.createVM();
-
-        this.allowedRoles = tempVM.getAllowedRoles.apply(null);
     }
 
     createVM(){
