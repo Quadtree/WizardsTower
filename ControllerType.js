@@ -5,9 +5,11 @@ const fs = require("fs");
 
 class ControllerType
 {
-    constructor(file){
+    constructor(file, charClass, team){
+        this.charClass = charClass;
+        this.team = team;
         this.file = file;
-
+        this.wins = 0;
         this._script = new vm.Script('"use strict";\n' + fs.readFileSync(file));
     }
 
@@ -17,3 +19,5 @@ class ControllerType
         return sandbox;
     }
 }
+
+module.exports = ControllerType;
