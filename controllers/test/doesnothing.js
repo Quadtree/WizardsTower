@@ -1,3 +1,6 @@
 function turn(myName, participants, turnNumber){
-    console.log("I CAN SPAM!");
+    return {
+        spell: "Flame Arrow",
+        target: "C0"
+    };
 }

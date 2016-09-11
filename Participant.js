@@ -32,7 +32,7 @@ class Participant
         let action = JSON.parse(JSON.stringify(vm.runInContext("turn('" + this.name + "'," + JSON.stringify(cleanedList) + "," + turnNumber + ");", this._vm)));
 
         if (action.spell && typeof(action.spell) == "string"){
-            this_.logger.log(this.name + " casts " + action.spell);
+            this._logger.log(this.name + " casts " + action.spell);
         }
     }
 }
