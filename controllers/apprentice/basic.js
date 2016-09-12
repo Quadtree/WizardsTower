@@ -23,8 +23,8 @@ function turn(me, participants, turnNumber){
 
         for (let scle of p.spellCastLog){
             let theSpell = SPELLS[scle.spellName];
-            //if (!theSpell) throw "Wait, spell " + scle.spellName + " doesn't exist!";
-            if (theSpell.damage > 0 && scle.target == wizardsName && theSpell.targetMode == "ALL"){
+            if (!theSpell) throw "Wait, spell " + scle.spellName + " doesn't exist!";
+            if (theSpell.damage > 0 && (scle.target == wizardsName || theSpell.targetMode == "ALL")){
                 attackedTheWizard.push(p.name);
                 break;
             }

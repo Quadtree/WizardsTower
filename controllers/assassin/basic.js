@@ -33,5 +33,6 @@ function turn(me, participants, turnNumber){
                 target: potentialTargets[Math.floor(Math.random() * potentialTargets.length)]
             };
         }
+        return {};
     }
 }
