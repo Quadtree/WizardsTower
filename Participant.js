@@ -61,7 +61,7 @@ class Participant
             }
 
             if (spell)
-                SPELLS[action.spell].cast(this, target, participants, this._logger);
+                SPELLS[action.spell].cast(this, target, participants, turnNumber, this._logger);
             else
                 logger.log("WARNING: Attempt to cast non-existant spell " + action.spell);
         }
