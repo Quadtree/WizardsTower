@@ -6,7 +6,7 @@ const SpellType = require("./SpellType.js");
 const SPELLS = {
     "Flame Arrow": new SpellType("Flame Arrow", 0.7, 1, "SINGLE", null),
     "Flame Wave": new SpellType("Flame Wave", 0.3, 1, "ALL", null),
-    "Heal": new SpellType("Heal", 0.2, 1, "SINGLE", null),
+    "Heal": new SpellType("Heal", 0.2, -1, "SINGLE", null),
 };
 
 class Participant
@@ -43,8 +43,10 @@ class Participant
         try {
             action = JSON.parse(JSON.stringify(vm.runInContext("turn(" + JSON.stringify(this) + "," + JSON.stringify(cleanedList) + "," + turnNumber + ");", this._vm, {timeout: 5})));
         } catch(ex){
-            console.log("Error in brain: " + JSON.stringify(ex));
+            console.log(this.controllerType.getLongName() + ": Error in brain: " + ex);
         }
+
+        if (typeof(action) != "object") action = {};
 
         if (action && action.spell && typeof(action.spell) == "string"){
             let spell = null;
@@ -58,15 +60,19 @@ class Participant
                         target = p;
                     }
                 }
-                if (!target) logger.log("WARNING: Attempt to cast at invalid target " + action.target);
+                if (!target) this._logger.log("WARNING: Attempt to cast at invalid target " + action.target);
             }
 
             if (spell)
                 SPELLS[action.spell].cast(this, target, participants, turnNumber, this._logger);
             else
-                logger.log("WARNING: Attempt to cast non-existant spell " + action.spell);
+                this._logger.log("WARNING: Attempt to cast non-existant spell " + action.spell);
         }
         
+    }
+
+    getLongName(){
+        return this.name + " (" + this.controllerType.getLongName() + ")";
     }
 }
 

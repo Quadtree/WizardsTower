@@ -6,6 +6,7 @@ const fs = require("fs");
 class ControllerType
 {
     constructor(file, charClass, team){
+        this.file = file;
         this.charClass = charClass;
         this.team = team;
         this.file = file;
@@ -17,6 +18,10 @@ class ControllerType
         let sandbox = {};
         this._script.runInNewContext(sandbox, {timeout: 20});
         return sandbox;
+    }
+
+    getLongName(){
+        return this.charClass + "+" + this.team + "+" + this.file;
     }
 }
 

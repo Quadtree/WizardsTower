@@ -1,13 +1,19 @@
 
 function turn(me, participants, turnNumber){
-    let targetName = me.name;
+    let potentialTargets = [];
 
-    while(targetName == me.name){
-        targetName = participants[Math.floor(Math.random() * participants.length)].name;
+    for (let p of participants){
+        if (p.name == me.name) continue;
+        if (p.hp <= 0) continue;
+
+        potentialTargets.push(p.name);
     }
-    
-    return {
-        spell: "Flame Arrow",
-        target: targetName
-    };
+    if (potentialTargets.length > 0){
+        return {
+            spell: "Flame Arrow",
+            target: potentialTargets[Math.floor(Math.random() * potentialTargets.length)]
+        };
+    }
+
+    return {};
 }

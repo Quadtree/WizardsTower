@@ -27,22 +27,18 @@ class SpellType
             if (caster.charClass == "WIZARD") effectiveSuccessChance += 0.2;
 
             if (Math.random() <= effectiveSuccessChance){
-                logger.log(caster.name + " casts " + this.name + " on " + (target ? target.name : "everyone"));
+                logger.log(caster.getLongName() + " casts " + this.name + " on " + (target ? target.getLongName() : "everyone"));
                 if (target){
-                    target.hp -= this.damage;
-                    if (target.hp > 4) target.hp = 4;
-                    logger.log(target.name + " takes " + this.damage + " damage, " + target.hp + " left");
+                    this._effect(target, logger);
                 } else {
                     for (let p of participants){
-                        p.hp -= this.damage;
-                        if (target.hp > 4) target.hp = 4;
-                        logger.log(p.name + " takes " + this.damage + " damage, " + p.hp + " left");
+                        this._effect(p, logger);
                     }
                 }
 
                 success = true;
             } else {
-                logger.log(caster.name + " miscasts " + this.name + " on " + (target ? target.name : "everyone") + ", the spell fizzles and has no effect");
+                logger.log(caster.getLongName() + " miscasts " + this.name + " on " + (target ? target.getLongName() : "everyone") + ", the spell fizzles and has no effect");
                 success = false;
             }
         }
@@ -50,6 +46,20 @@ class SpellType
         caster.spellCastLog.push(new SpellCastLogEntry(this.name, turnNumber, target ? target.name : null, success));
 
         return success;
+    }
+
+    _effect(target, logger){
+        if (this.damage > 0){
+            target.hp -= this.damage;
+            if (target.hp > 4) target.hp = 4;
+            logger.log(target.getLongName() + " takes " + this.damage + " damage, " + target.hp + " left");
+        } else if (target.hp > 0){
+            target.hp -= this.damage;
+            if (target.hp > 4) target.hp = 4;
+            logger.log(target.getLongName() + " is healed for " + -this.damage + " damage, " + target.hp + " left");
+        } else {
+            logger.log(target.getLongName() + " is dead and cannot be healed");
+        }
     }
 }
 
