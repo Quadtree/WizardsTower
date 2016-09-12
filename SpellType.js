@@ -63,4 +63,10 @@ class SpellType
     }
 }
 
+SpellType.prototype.SPELLS = {
+    "Flame Arrow": new SpellType("Flame Arrow", 0.7, 1, "SINGLE", null),
+    "Flame Wave": new SpellType("Flame Wave", 0.3, 1, "ALL", null),
+    "Heal": new SpellType("Heal", 0.2, -1, "SINGLE", null),
+};
+
 module.exports = SpellType;

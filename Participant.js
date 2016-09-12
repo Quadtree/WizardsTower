@@ -3,18 +3,12 @@
 const vm = require("vm");
 const SpellType = require("./SpellType.js");
 
-const SPELLS = {
-    "Flame Arrow": new SpellType("Flame Arrow", 0.7, 1, "SINGLE", null),
-    "Flame Wave": new SpellType("Flame Wave", 0.3, 1, "ALL", null),
-    "Heal": new SpellType("Heal", 0.2, -1, "SINGLE", null),
-};
+
 
 class Participant
 {
     constructor(controllerType, name, logger){
         this._vm = controllerType.createVM();
-
-        vm.runInContext("const SPELLS = " + JSON.stringify(SPELLS), this._vm);
 
         this.hp = 4;
         this.charClass = controllerType.charClass;
@@ -27,6 +21,7 @@ class Participant
 
     turn(participants, turnNumber){
         let cleanedList = [];
+        const SPELLS = SpellType.prototype.SPELLS;
 
         for (let p of participants){
             let cleaned = {};
@@ -42,7 +37,7 @@ class Participant
         let action = null;
         try {
             //action = JSON.parse(JSON.stringify(vm.runInContext("turn(" + JSON.stringify(this) + "," + JSON.stringify(cleanedList) + "," + turnNumber + ");", this._vm, {timeout: 50})));
-            this._vm.turn(this, cleanedList, turnNumber);
+            action = this._vm.turn(JSON.parse(JSON.stringify(this)), cleanedList, turnNumber);
         } catch(ex){
             console.log(this.controllerType.getLongName() + ": Error in brain: " + ex);
         }

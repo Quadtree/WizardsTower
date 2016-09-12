@@ -2,6 +2,7 @@
 
 const vm = require("vm");
 const fs = require("fs");
+const SpellType = require("./SpellType.js");
 
 class ControllerType
 {
@@ -11,12 +12,12 @@ class ControllerType
         this.team = team;
         this.file = file;
         this.wins = 0;
-        this._script = new vm.Script('"use strict";\n' + fs.readFileSync(file));
+        this._script = new vm.Script('"use strict";\nconst SPELLS = ' + JSON.stringify(SpellType.prototype.SPELLS) + ";\n" + fs.readFileSync(file));
     }
 
     createVM(){
         let sandbox = {};
-        this._script.runInNewContext(sandbox, {timeout: 20});
+        this._script.runInNewContext(sandbox);
         return sandbox;
     }
 
