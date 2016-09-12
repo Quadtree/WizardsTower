@@ -65,8 +65,13 @@ controllerTypes.push(new ControllerType("./controllers/apprentice/basic.js", "AP
 controllerTypes.push(new ControllerType("./controllers/assassin/basic.js", "APPRENTICE", "ASSASSIN"));
 controllerTypes.push(new ControllerType("./controllers/demon/basic.js", "APPRENTICE", "DEMON"));
 
-for (let i=0;i<100;++i){
-    runSimulation(controllerTypes, nullLogger);
+for (let i=0;i<10000;++i){
+    try {
+        console.log("Iteration " + i);
+        runSimulation(controllerTypes, nullLogger);
+    } catch(ex){
+        console.warn("Iteration " + i + " crashed!: " + ex);
+    }
 }
 
 console.log("Simulation over");

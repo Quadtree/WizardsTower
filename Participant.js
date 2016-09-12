@@ -41,7 +41,7 @@ class Participant
         }
         let action = null;
         try {
-            action = JSON.parse(JSON.stringify(vm.runInContext("turn(" + JSON.stringify(this) + "," + JSON.stringify(cleanedList) + "," + turnNumber + ");", this._vm, {timeout: 5})));
+            action = JSON.parse(JSON.stringify(vm.runInContext("turn(" + JSON.stringify(this) + "," + JSON.stringify(cleanedList) + "," + turnNumber + ");", this._vm, {timeout: 50})));
         } catch(ex){
             console.log(this.controllerType.getLongName() + ": Error in brain: " + ex);
         }
