@@ -20,6 +20,7 @@ class Participant
         this.charClass = controllerType.charClass;
         this.team = controllerType.team;
         this.name = name;
+        this.controllerType = controllerType;
         this.spellCastLog = [];
         this._logger = logger;
     }

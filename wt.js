@@ -17,6 +17,38 @@ function runSimulation(controllerTypes, logger){
             if (p.hp > 0) p.turn(participants, turnNumber);
         }
     }
+
+    let isWizardAlive = false;
+    let areAssassinsAlive = false;
+    let numDemonsAlive = 0;
+    let numAlive = 0;
+
+    for (let p of participants){
+        if (p.hp > 0){
+            if (p.charClass == "WIZARD") isWizardAlive = true;
+            if (p.charClass == "APPRENTICE" && p.team == "ASSASSIN") areAssassinsAlive = true;
+            if (p.team == "DEMON") numDemonsAlive++;
+            numAlive++;
+        }
+    }
+
+    // the last living demon wins
+    if (numAlive == 1 && numDemonsAlive == 1){
+        logger.log("A demon has won!");
+        for (let p of participants){
+            if (p.hp > 0){ p.controllerType.wins++; logger.log(p.name + " scores a point"); }
+        }
+    } else if(isWizardAlive){
+        logger.log("Team Wizard has won!");
+        for (let p of participants){
+            if (p.team == "WIZARD"){ p.controllerType.wins++; logger.log(p.name + " scores a point"); }
+        }
+    } else if (areAssassinsAlive){
+        logger.log("Team Assassin has won!");
+        for (let p of participants){
+            if (p.team == "ASSASSIN"){ p.controllerType.wins++; logger.log(p.name + " scores a point"); }
+        }
+    }
 }
 
 let controllerTypes = [];

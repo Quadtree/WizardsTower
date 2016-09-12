@@ -1,6 +1,6 @@
 function turn(myName, participants, turnNumber){
     return {
         spell: "Flame Arrow",
-        target: "C0"
+        target: "C" + Math.floor(Math.random() * 3),
     };
 }
