@@ -1,5 +1,8 @@
 "use strict";
 
+let startTime = new Date();
+console.log("Starting at " + startTime);
+
 let Participant = require("./Participant.js");
 let ControllerType = require("./ControllerType.js");
 
@@ -78,3 +81,6 @@ console.log("Simulation over");
 for (let ct of controllerTypes){
     console.log(ct.getLongName() + ": " + ct.wins);
 }
+
+let finishTime = new Date();
+console.log("Finished at " + finishTime + ", took " + ((finishTime.getTime() - startTime.getTime()) / 1000) + " seconds");
