@@ -41,10 +41,13 @@ class ControllerType
     }
 
     getLongName(){
+        if (this._longNameCache) return this._longNameCache;
         let geneTextParts = [];
         for (let g of this.genes) geneTextParts.push(g.toFixed(2));
 
-        return this.charClass + "+" + this.team + "+" + this.file + "+" + geneTextParts.join("|");
+        this._longNameCache = this.charClass + "+" + this.team + "+" + this.file + "+" + geneTextParts.join("|");
+
+        return this._longNameCache;
     }
 }
 
