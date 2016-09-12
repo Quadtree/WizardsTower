@@ -3,6 +3,8 @@
 let Participant = require("./Participant.js");
 let ControllerType = require("./ControllerType.js");
 
+let nullLogger = {log: function(){}};
+
 function runSimulation(controllerTypes, logger){
     let participants = [];
 
@@ -63,4 +65,12 @@ controllerTypes.push(new ControllerType("./controllers/apprentice/basic.js", "AP
 controllerTypes.push(new ControllerType("./controllers/assassin/basic.js", "APPRENTICE", "ASSASSIN"));
 controllerTypes.push(new ControllerType("./controllers/demon/basic.js", "APPRENTICE", "DEMON"));
 
-runSimulation(controllerTypes, console);
+for (let i=0;i<100;++i){
+    runSimulation(controllerTypes, nullLogger);
+}
+
+console.log("Simulation over");
+
+for (let ct of controllerTypes){
+    console.log(ct.getLongName() + ": " + ct.wins);
+}
