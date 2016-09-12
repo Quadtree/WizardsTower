@@ -3,8 +3,10 @@
 let startTime = new Date();
 console.log("Starting at " + startTime);
 
-let Participant = require("./Participant.js");
-let ControllerType = require("./ControllerType.js");
+const Participant = require("./Participant.js");
+const ControllerType = require("./ControllerType.js");
+const Pool = require("./Pool.js");
+const GroupPool = require("./GroupPool.js");
 
 const argv = require("minimist")(process.argv.slice(2));
 
@@ -63,28 +65,61 @@ function runSimulation(controllerTypes, logger){
     }
 }
 
-let controllerTypes = [];
-
 const iterations = parseInt(argv.iterations) ? parseInt(argv.iterations) : 1;
+const generations = parseInt(argv.generations) ? parseInt(argv.generations) : 1;
 const debug = argv.debug == true;
 
-controllerTypes.push(new ControllerType("./controllers/apprentice/basic.js", "WIZARD", "WIZARD"));
-controllerTypes.push(new ControllerType("./controllers/apprentice/basic.js", "APPRENTICE", "WIZARD"));
-controllerTypes.push(new ControllerType("./controllers/assassin/basic.js", "APPRENTICE", "ASSASSIN"));
-controllerTypes.push(new ControllerType("./controllers/demon/basic.js", "APPRENTICE", "DEMON"));
+let pools = [
+    new GroupPool([
+        new Pool([new ControllerType("./controllers/apprentice/basic.js", "WIZARD", "WIZARD")]),
+        new Pool([new ControllerType("./controllers/apprentice/basic.js", "APPRENTICE", "WIZARD")])
+    ]),
+    new Pool([new ControllerType("./controllers/assassin/basic.js", "APPRENTICE", "ASSASSIN")]),
+    new Pool([new ControllerType("./controllers/demon/basic.js", "APPRENTICE", "DEMON")]),
+];
 
-for (let i=0;i<iterations;++i){
-    try {
-        runSimulation(controllerTypes, debug ? console : nullLogger);
-    } catch(ex){
-        console.warn("Iteration " + i + " crashed!: " + ex);
+for (let generation=0;generation<generations;++generation){
+    
+    console.log("Starting generation " + generation);
+
+    for (let pool of pools){
+        pool.cull(10);
+        pool.grow(30);
     }
-}
 
-console.log("Simulation over");
 
-for (let ct of controllerTypes){
-    console.log(ct.getLongName() + ": " + ct.wins);
+    for (let i=0;i<iterations;++i){
+
+        let controllerTypes;
+        let itr = 0;
+
+        while(true){
+            controllerTypes = [];
+            for (let j=0;j<6;++j) controllerTypes.push(pools[Math.floor(Math.random() * pools.length)].select());
+            
+            let hasWizard = false;
+            for (let p of controllerTypes){
+                if (p.charClass == "WIZARD"){
+                    hasWizard = true;
+                    break;
+                }
+            }
+            if (hasWizard) break;
+            if (++itr > 10000) throw "Too many iterations. ABORT! " + JSON.stringify(controllerTypes) + "\n\n" + JSON.stringify(pools);
+        }
+
+        try {
+            runSimulation(controllerTypes, debug ? console : nullLogger);
+        } catch(ex){
+            console.warn("Iteration " + i + " crashed!: " + ex);
+        }
+    }
+
+    for (let pool of pools){
+        for (let ct of pool.getAll()){
+            console.log(ct.getLongName() + ": " + ct.wins);
+        }
+    }
 }
 
 let finishTime = new Date();
