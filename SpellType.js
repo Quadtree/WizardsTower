@@ -19,14 +19,18 @@ class SpellType
             return false;
         }
 
-        if (Math.random() <= this.successChance){
-            logger.log(caster.name + " casts " + this.name + " on " + target ? target.name : "everyone");
+        let effectiveSuccessChance = this.successChance;
+
+        if (caster.charClass == "WIZARD") effectiveSuccessChance += 0.2;
+
+        if (Math.random() <= effectiveSuccessChance){
+            logger.log(caster.name + " casts " + this.name + " on " + (target ? target.name : "everyone"));
             if (target){
-                logger.log(target.name + " takes " + this.damage + " damage");
+                logger.log(target.name + " takes " + this.damage + " damage, " + target.hp + " left");
                 target.hp -= this.damage;
             } else {
                 for (let p of participants){
-                    logger.log(p.name + " takes " + this.damage + " damage");
+                    logger.log(p.name + " takes " + this.damage + " damage, " + p.hp + " left");
                     p.hp -= this.damage;
                 }
             }

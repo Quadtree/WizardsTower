@@ -31,7 +31,7 @@ class Participant
             let cleaned = {};
             cleaned.hp = p.hp;
             cleaned.charClass = p.charClass;
-            cleaned.team = p.team;
+            cleaned.team = p.hp > 0 ? null : p.team;
             cleaned.name = p.name;
 
             cleaned.spellCastLog = p.spellCastLog;
