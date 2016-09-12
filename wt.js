@@ -116,6 +116,7 @@ for (let generation=0;generation<generations;++generation){
     }
 
     for (let pool of pools){
+        pool.cull(30);
         for (let ct of pool.getAll()){
             console.log(ct.getLongName() + ": " + ct.wins);
             ct.wins=0;
