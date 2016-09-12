@@ -14,7 +14,7 @@ class Participant
     constructor(controllerType, name, logger){
         this._vm = controllerType.createVM();
 
-        vm.runInContext("const SPELLS = " + JSON.stringify(SPELLS), this._vm, {timeout: 25});
+        vm.runInContext("const SPELLS = " + JSON.stringify(SPELLS), this._vm);
 
         this.hp = 4;
         this.charClass = controllerType.charClass;
@@ -41,7 +41,8 @@ class Participant
         }
         let action = null;
         try {
-            action = JSON.parse(JSON.stringify(vm.runInContext("turn(" + JSON.stringify(this) + "," + JSON.stringify(cleanedList) + "," + turnNumber + ");", this._vm, {timeout: 50})));
+            //action = JSON.parse(JSON.stringify(vm.runInContext("turn(" + JSON.stringify(this) + "," + JSON.stringify(cleanedList) + "," + turnNumber + ");", this._vm, {timeout: 50})));
+            this._vm.turn(this, cleanedList, turnNumber);
         } catch(ex){
             console.log(this.controllerType.getLongName() + ": Error in brain: " + ex);
         }

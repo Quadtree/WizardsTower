@@ -67,7 +67,6 @@ controllerTypes.push(new ControllerType("./controllers/demon/basic.js", "APPRENT
 
 for (let i=0;i<10000;++i){
     try {
-        console.log("Iteration " + i);
         runSimulation(controllerTypes, nullLogger);
     } catch(ex){
         console.warn("Iteration " + i + " crashed!: " + ex);
