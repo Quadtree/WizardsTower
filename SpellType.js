@@ -29,12 +29,14 @@ class SpellType
             if (Math.random() <= effectiveSuccessChance){
                 logger.log(caster.name + " casts " + this.name + " on " + (target ? target.name : "everyone"));
                 if (target){
-                    logger.log(target.name + " takes " + this.damage + " damage, " + target.hp + " left");
                     target.hp -= this.damage;
+                    if (target.hp > 4) target.hp = 4;
+                    logger.log(target.name + " takes " + this.damage + " damage, " + target.hp + " left");
                 } else {
                     for (let p of participants){
-                        logger.log(p.name + " takes " + this.damage + " damage, " + p.hp + " left");
                         p.hp -= this.damage;
+                        if (target.hp > 4) target.hp = 4;
+                        logger.log(p.name + " takes " + this.damage + " damage, " + p.hp + " left");
                     }
                 }
 

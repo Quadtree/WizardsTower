@@ -58,9 +58,9 @@ function runSimulation(controllerTypes, logger){
 
 let controllerTypes = [];
 
-controllerTypes.push(new ControllerType("./controllers/test/doesnothing.js", "WIZARD", "WIZARD"));
-controllerTypes.push(new ControllerType("./controllers/test/doesnothing.js", "APPRENTICE", "WIZARD"));
-controllerTypes.push(new ControllerType("./controllers/test/doesnothing.js", "APPRENTICE", "ASSASSIN"));
-controllerTypes.push(new ControllerType("./controllers/test/doesnothing.js", "APPRENTICE", "DEMON"));
+controllerTypes.push(new ControllerType("./controllers/apprentice/basic.js", "WIZARD", "WIZARD"));
+controllerTypes.push(new ControllerType("./controllers/apprentice/basic.js", "APPRENTICE", "WIZARD"));
+controllerTypes.push(new ControllerType("./controllers/assassin/basic.js", "APPRENTICE", "ASSASSIN"));
+controllerTypes.push(new ControllerType("./controllers/demon/basic.js", "APPRENTICE", "DEMON"));
 
 runSimulation(controllerTypes, console);
