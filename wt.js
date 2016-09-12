@@ -6,6 +6,8 @@ console.log("Starting at " + startTime);
 let Participant = require("./Participant.js");
 let ControllerType = require("./ControllerType.js");
 
+const argv = require("minimist")(process.argv.slice(2));
+
 let nullLogger = {log: function(){}};
 
 function runSimulation(controllerTypes, logger){
@@ -63,14 +65,17 @@ function runSimulation(controllerTypes, logger){
 
 let controllerTypes = [];
 
+const iterations = parseInt(argv.iterations) ? parseInt(argv.iterations) : 1;
+const debug = argv.debug == true;
+
 controllerTypes.push(new ControllerType("./controllers/apprentice/basic.js", "WIZARD", "WIZARD"));
 controllerTypes.push(new ControllerType("./controllers/apprentice/basic.js", "APPRENTICE", "WIZARD"));
 controllerTypes.push(new ControllerType("./controllers/assassin/basic.js", "APPRENTICE", "ASSASSIN"));
 controllerTypes.push(new ControllerType("./controllers/demon/basic.js", "APPRENTICE", "DEMON"));
 
-for (let i=0;i<10000;++i){
+for (let i=0;i<iterations;++i){
     try {
-        runSimulation(controllerTypes, nullLogger);
+        runSimulation(controllerTypes, debug ? console : nullLogger);
     } catch(ex){
         console.warn("Iteration " + i + " crashed!: " + ex);
     }
