@@ -6,8 +6,8 @@ The game works as follows:
 
 There are N participants. Each participant has two attributes:
 
-Class (Public): Either Apprentice or Wizard. The wizard has a +20% chance to cast all spells
-Team (Private): Either Wizard, Assassin, or Demon
+* Class (Public): Either Apprentice or Wizard. The wizard has a +20% chance to cast all spells
+* Team (Private): Either Wizard, Assassin, or Demon
 
 Play proceeds in a random order, although once set during the first turn the order never changes.
 
