@@ -1,6 +1,9 @@
 let wizardsName = null;
 
-function turn(me, participants, turnNumber){
+function turn(turnNumber){
+    let participants = PARTICIPANTS;
+    let me = ME;
+
     if (wizardsName === null){
         for (let p of participants){
             if (p.charClass == "WIZARD"){

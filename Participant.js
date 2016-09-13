@@ -48,7 +48,7 @@ class Participant
 
         let action = null;
         try {
-            action = this._vm.turn.call(null, this.public, this._vm.PARTICIPANTS, turnNumber, this.team);
+            action = this._vm.turn.call(null, turnNumber);
         } catch(ex){
             console.log(this.controllerType.getLongName() + ": Error in brain: " + ex);
         }

@@ -1,5 +1,5 @@
 
-function turn(me, participants, turnNumber){
+function turn(turnNumber){
     let potentialTargets = [];
 
     for (let p of PARTICIPANTS){
