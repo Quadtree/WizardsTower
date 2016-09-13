@@ -17,26 +17,30 @@ class Participant
         this.controllerType = controllerType;
         this.spellCastLog = [];
         this._logger = logger;
+        this._cleanedList = null;
+
+        this.public = {};
+        Object.defineProperties(this.public, {
+            hp: {get: () => { return this.hp; }},
+            charClass: {get: () => { return this.charClass; }},
+            team: {get: () => { return p.hp > 0 ? null : this.team; }},
+            name: {get: () => { return this.name; }},
+            spellCastLog: {get: () => { return this.spellCastLog; }},
+        });
     }
 
     turn(participants, turnNumber){
-        let cleanedList = [];
         const SPELLS = SpellType.prototype.SPELLS;
 
-        for (let p of participants){
-            let cleaned = {};
-            cleaned.hp = p.hp;
-            cleaned.charClass = p.charClass;
-            cleaned.team = p.hp > 0 ? null : p.team;
-            cleaned.name = p.name;
-
-            cleaned.spellCastLog = p.spellCastLog;
-
-            cleanedList.push(cleaned);
+        if (this._cleanedList === null){
+            this._cleanedList = [];
+            for (let p of participants){
+                this._cleanedList.push(p.public);
+            }
         }
         let action = null;
         try {
-            action = this._vm.turn.call(null, this, cleanedList, turnNumber);
+            action = this._vm.turn.call(null, this.public, this._cleanedList, turnNumber, this.team);
         } catch(ex){
             console.log(this.controllerType.getLongName() + ": Error in brain: " + ex);
         }
