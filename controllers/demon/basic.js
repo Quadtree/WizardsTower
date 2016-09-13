@@ -2,10 +2,8 @@
 function turn(me, participants, turnNumber){
     let potentialTargets = [];
 
-    if (typeof(GENES[0]) != "undefined" && Math.random() < GENES[0] * 0.4) return {};
-
-    for (let p of participants){
-        if (p.name == me.name) continue;
+    for (let p of PARTICIPANTS){
+        if (p.name == ME.name) continue;
         if (p.hp <= 0) continue;
 
         potentialTargets.push(p.name);
