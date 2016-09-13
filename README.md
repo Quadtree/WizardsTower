@@ -23,8 +23,8 @@ From this function they should return an object with two fields: "spell", which 
 
 They also get a list of automatic globals passed into their VM:
 
-SPELLS: A list of all spells and their attributes
-PARTICIPANTS: All the participants in the current game, in turn order
-PARTICIPANT_MAP: Map keyed off the participants' names
-ME: Public fields for this particular participant
-MY_TEAM: The team this participant is on (Either WIZARD, ASSASSIN, or DEMON)
+* SPELLS: A list of all spells and their attributes
+* PARTICIPANTS: All the participants in the current game, in turn order
+* PARTICIPANT_MAP: Map keyed off the participants' names
+* ME: Public fields for this particular participant
+* MY_TEAM: The team this participant is on (Either WIZARD, ASSASSIN, or DEMON)
