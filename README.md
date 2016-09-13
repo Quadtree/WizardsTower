@@ -1,3 +1,7 @@
+# Wizard's Tower
+This is a fairly simple programming game partially inspired by the tabletop game "Bang".
+
+## The Game
 The game works as follows:
 
 There are N participants. Each participant has two attributes:

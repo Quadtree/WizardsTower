@@ -69,13 +69,21 @@ const iterations = parseInt(argv.iterations) ? parseInt(argv.iterations) : 1;
 const generations = parseInt(argv.generations) ? parseInt(argv.generations) : 1;
 const debug = argv.debug == true;
 
+let initialGenes = [];
+
+if (argv.generations > 1){
+    for (let i=0;i<10;++i){
+        initialGenes.push(1);
+    }
+}
+
 let pools = [
     new GroupPool([
-        new Pool([new ControllerType("./controllers/apprentice/basic.js", "WIZARD", "WIZARD")]),
-        new Pool([new ControllerType("./controllers/apprentice/basic.js", "APPRENTICE", "WIZARD")])
+        new Pool([new ControllerType("./controllers/apprentice/basic.js", "WIZARD", "WIZARD", initialGenes)]),
+        new Pool([new ControllerType("./controllers/apprentice/basic.js", "APPRENTICE", "WIZARD", initialGenes)])
     ]),
-    new Pool([new ControllerType("./controllers/assassin/basic.js", "APPRENTICE", "ASSASSIN")]),
-    new Pool([new ControllerType("./controllers/demon/basic.js", "APPRENTICE", "DEMON")]),
+    new Pool([new ControllerType("./controllers/assassin/basic.js", "APPRENTICE", "ASSASSIN", initialGenes)]),
+    new Pool([new ControllerType("./controllers/demon/basic.js", "APPRENTICE", "DEMON", initialGenes)]),
 ];
 
 for (let generation=0;generation<generations;++generation){
@@ -84,7 +92,7 @@ for (let generation=0;generation<generations;++generation){
 
     for (let pool of pools){
         pool.cull(10);
-        pool.grow(30);
+        if (argv.generations > 1) pool.grow(30);
     }
 
 
