@@ -18,7 +18,8 @@ After 50 turns, the winner is decided:
 * If there is only one participant left, and they're a demon, they win. Dead demons never get credit.
 
 ## Creating New Controllers
-Controllers receive a call to "turn" on each turn. It has a single argument, which is the 0-based turn number
+Controllers receive a call to "turn" on each turn. It has a single argument, which is the 0-based turn number.
+
 From this function they should return an object with two fields: "spell", which is the spell they want to cast, and target, which is the target of the spell's name (or null, if the spell targets ALL)
 
 They also get a list of automatic globals passed into their VM:
