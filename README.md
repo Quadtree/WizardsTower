@@ -13,6 +13,6 @@ Play proceeds in a random order, although once set during the first turn the ord
 
 After 50 turns, the winner is decided:
 
-If the wizard is alive, Team Wizard wins. Dead apprentices still get credit.
-If the wizard is dead and at least one assassin is alive, Team Assassin wins. Dead assasins still get credit.
-If there is only one participant left, and they're a demon, they win. Dead demons never get credit.
+* If the wizard is alive, Team Wizard wins. Dead apprentices still get credit.
+* If the wizard is dead and at least one assassin is alive, Team Assassin wins. Dead assasins still get credit.
+* If there is only one participant left, and they're a demon, they win. Dead demons never get credit.
