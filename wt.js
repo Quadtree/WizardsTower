@@ -7,6 +7,7 @@ const Participant = require("./Participant.js");
 const ControllerType = require("./ControllerType.js");
 const Pool = require("./Pool.js");
 const GroupPool = require("./GroupPool.js");
+const fs = require("fs");
 
 const argv = require("minimist")(process.argv.slice(2));
 
@@ -77,13 +78,23 @@ if (argv.generations > 1){
     }
 }
 
+function getAllControllersInDir(path, charClass, team, initialGenes){
+    let ret = [];
+
+    for (let file of fs.readdirSync(path)){
+        ret.push(new ControllerType(path + "/" + file, charClass, team, initialGenes));
+    }
+
+    return ret;
+}
+
 let pools = [
     new GroupPool([
-        new Pool([new ControllerType("./controllers/apprentice/basic.js", "WIZARD", "WIZARD", initialGenes)]),
-        new Pool([new ControllerType("./controllers/apprentice/basic.js", "APPRENTICE", "WIZARD", initialGenes)])
+        new Pool(getAllControllersInDir("./controllers/wizard", "WIZARD", "WIZARD", initialGenes)),
+        new Pool(getAllControllersInDir("./controllers/apprentice", "APPRENTICE", "WIZARD", initialGenes))
     ]),
-    new Pool([new ControllerType("./controllers/assassin/basic.js", "APPRENTICE", "ASSASSIN", initialGenes)]),
-    new Pool([new ControllerType("./controllers/demon/basic.js", "APPRENTICE", "DEMON", initialGenes)]),
+    new Pool(getAllControllersInDir("./controllers/assassin", "APPRENTICE", "ASSASSIN", initialGenes)),
+    new Pool(getAllControllersInDir("./controllers/demon", "APPRENTICE", "DEMON", initialGenes)),
 ];
 
 for (let generation=0;generation<generations;++generation){
