@@ -116,14 +116,11 @@ for (let generation=0;generation<generations;++generation){
             controllerTypes = [];
             for (let j=0;j<6;++j) controllerTypes.push(pools[Math.floor(Math.random() * pools.length)].select());
             
-            let hasWizard = false;
+            let wizardCount = 0;
             for (let p of controllerTypes){
-                if (p.charClass == "WIZARD"){
-                    hasWizard = true;
-                    break;
-                }
+                if (p.charClass == "WIZARD") wizardCount++;
             }
-            if (hasWizard) break;
+            if (wizardCount == 1) break;
             if (++itr > 10000) throw "Too many iterations. ABORT! " + JSON.stringify(controllerTypes) + "\n\n" + JSON.stringify(pools);
         }
 
