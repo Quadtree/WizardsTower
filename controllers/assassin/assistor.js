@@ -34,7 +34,7 @@ function turn(turnNumber){
         }
     }
 
-    if (attackedTheWizard.length > 0 || turnNumber >= 35){
+    if (attackedTheWizard.length > 0){// || turnNumber >= 35){
         // someone has attacked the wizard, so let's help!
         let potentialTargets = [];
         let wizardIsAlive = false;

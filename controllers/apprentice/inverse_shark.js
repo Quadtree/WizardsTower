@@ -15,6 +15,7 @@ function turn(turnNumber){
 
     let attackedTheWizard = [];
     let wizardsHP = null;
+    let wizardAttacked = false;
 
     for (let p of participants){
         if (p.name == wizardsName){
@@ -29,6 +30,7 @@ function turn(turnNumber){
             if (!theSpell) throw "Wait, spell " + scle.spellName + " doesn't exist!";
             if (theSpell.damage > 0 && (scle.target == wizardsName || theSpell.targetMode == "ALL")){
                 attackedTheWizard.push(p.name);
+                wizardAttacked = true;
                 break;
             }
         }
@@ -43,9 +45,17 @@ function turn(turnNumber){
     }
 
     if (attackedTheWizard.length > 0){
-        attackedTheWizard.sort(function(a, b){
-            return b.hp - a.hp;
-        });
+        if (!wizardAttacked){
+            // we're just firing randomly
+            // try to keep everyone at the same HP
+            attackedTheWizard.sort(function(a, b){
+                return b.hp - a.hp;
+            });
+        } else {
+            attackedTheWizard.sort(function(a, b){
+                return a.hp - b.hp;
+            });
+        }
 
         /*let p = [];
         for (let a of attackedTheWizard) p.push(a.hp);

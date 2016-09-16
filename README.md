@@ -29,3 +29,18 @@ They also get a list of automatic globals passed into their VM:
 * PARTICIPANT_MAP: Map keyed off the participants' names
 * ME: Public fields for this particular participant
 * MY_TEAM: The team this participant is on (Either WIZARD, ASSASSIN, or DEMON)
+
+# Recent Result:
+<pre>
+WIZARD+WIZARD+./controllers/wizard/basic.js+: 1174
+WIZARD+WIZARD+./controllers/wizard/healself.js+: 180
+APPRENTICE+WIZARD+./controllers/apprentice/shark.js+: 508
+APPRENTICE+WIZARD+./controllers/apprentice/inverse_shark.js+: 492
+APPRENTICE+WIZARD+./controllers/apprentice/basic.js+: 488
+APPRENTICE+WIZARD+./controllers/apprentice/aggressive.js+: 457
+APPRENTICE+ASSASSIN+./controllers/assassin/assistor.js+: 1032
+APPRENTICE+ASSASSIN+./controllers/assassin/basic.js+: 885
+APPRENTICE+ASSASSIN+./controllers/assassin/delayed_action.js+: 551
+APPRENTICE+DEMON+./controllers/demon/noattackwizard.js+: 1715
+APPRENTICE+DEMON+./controllers/demon/basic.js+: 760
+</pre>
