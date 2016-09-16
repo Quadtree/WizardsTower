@@ -32,15 +32,16 @@ They also get a list of automatic globals passed into their VM:
 
 # Recent Result:
 <pre>
-WIZARD+WIZARD+./controllers/wizard/basic.js+: 1174
-WIZARD+WIZARD+./controllers/wizard/healself.js+: 180
-APPRENTICE+WIZARD+./controllers/apprentice/shark.js+: 508
-APPRENTICE+WIZARD+./controllers/apprentice/inverse_shark.js+: 492
-APPRENTICE+WIZARD+./controllers/apprentice/basic.js+: 488
-APPRENTICE+WIZARD+./controllers/apprentice/aggressive.js+: 457
-APPRENTICE+ASSASSIN+./controllers/assassin/assistor.js+: 1032
-APPRENTICE+ASSASSIN+./controllers/assassin/basic.js+: 885
-APPRENTICE+ASSASSIN+./controllers/assassin/delayed_action.js+: 551
-APPRENTICE+DEMON+./controllers/demon/noattackwizard.js+: 1715
-APPRENTICE+DEMON+./controllers/demon/basic.js+: 760
+WIZARD+WIZARD+./controllers/wizard/basic.js+: 1071
+WIZARD+WIZARD+./controllers/wizard/healself.js+: 194
+APPRENTICE+WIZARD+./controllers/apprentice/shark.js+: 471
+APPRENTICE+WIZARD+./controllers/apprentice/aggressive.js+: 453
+APPRENTICE+WIZARD+./controllers/apprentice/basic.js+: 452
+APPRENTICE+WIZARD+./controllers/apprentice/inverse_shark.js+: 446
+APPRENTICE+ASSASSIN+./controllers/assassin/assistor.js+: 780
+APPRENTICE+ASSASSIN+./controllers/assassin/waiter.js+: 718
+APPRENTICE+ASSASSIN+./controllers/assassin/basic.js+: 689
+APPRENTICE+ASSASSIN+./controllers/assassin/delayed_action.js+: 447
+APPRENTICE+DEMON+./controllers/demon/noattackwizard.js+: 1709
+APPRENTICE+DEMON+./controllers/demon/basic.js+: 781
 </pre>
