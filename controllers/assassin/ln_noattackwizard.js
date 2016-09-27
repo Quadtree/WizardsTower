@@ -1,0 +1,1 @@
+include("demon/noattackwizard.js");
