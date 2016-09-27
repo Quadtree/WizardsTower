@@ -33,6 +33,7 @@ function runSimulation(controllerTypes, logger){
     let areAssassinsAlive = false;
     let numDemonsAlive = 0;
     let numAlive = 0;
+    let teamMembersAlive = {};
 
     for (let p of participants){
         if (p.hp > 0){
@@ -40,29 +41,39 @@ function runSimulation(controllerTypes, logger){
             if (p.charClass == "APPRENTICE" && p.team == "ASSASSIN") areAssassinsAlive = true;
             if (p.team == "DEMON") numDemonsAlive++;
             numAlive++;
+
+            if (typeof(teamMembersAlive[p.team]) == "undefined") teamMembersAlive[p.team] = 0;
+            teamMembersAlive[p.team]++;
         }
     }
 
-    // the last living demon wins
-    if (numAlive == 0){
-        logger.log("Everyone is dead, so nobody wins!");
-    } else if (numAlive == 1 && numDemonsAlive == 1){
-        logger.log("A demon has won!");
-        for (let p of participants){
-            if (p.hp > 0){ p.controllerType.wins++; logger.log(p.name + " scores a point"); }
-        }
-    } else if(isWizardAlive){
-        logger.log("Team Wizard has won!");
-        for (let p of participants){
-            if (p.team == "WIZARD"){ p.controllerType.wins++; logger.log(p.name + " scores a point"); }
-        }
-    } else if (areAssassinsAlive){
-        logger.log("Team Assassin has won!");
-        for (let p of participants){
-            if (p.team == "ASSASSIN"){ p.controllerType.wins++; logger.log(p.name + " scores a point"); }
+    let teamsStillUp = 0;
+    for (let k in teamMembersAlive) teamsStillUp++;
+
+    if (teamsStillUp == 1){
+        // the last living demon wins
+        if (numAlive == 0){
+            logger.log("Everyone is dead, so nobody wins!");
+        } else if (numAlive == 1 && numDemonsAlive == 1){
+            logger.log("A demon has won!");
+            for (let p of participants){
+                if (p.hp > 0){ p.controllerType.wins++; logger.log(p.name + " scores a point"); }
+            }
+        } else if(isWizardAlive){
+            logger.log("Team Wizard has won!");
+            for (let p of participants){
+                if (p.team == "WIZARD"){ p.controllerType.wins++; logger.log(p.name + " scores a point"); }
+            }
+        } else if (areAssassinsAlive){
+            logger.log("Team Assassin has won!");
+            for (let p of participants){
+                if (p.team == "ASSASSIN"){ p.controllerType.wins++; logger.log(p.name + " scores a point"); }
+            }
+        } else {
+            logger.log("Nobody wins!");
         }
     } else {
-        logger.log("Nobody wins!");
+        logger.log("Draw!");
     }
 }
 

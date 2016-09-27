@@ -34,6 +34,7 @@ class Participant
         if (turnNumber == 0){
             this._vm.PARTICIPANTS = [];
             this._vm.PARTICIPANT_MAP = {};
+            this._vm.TEAM_COUNTS = {};
             this._vm.ME = this.public;
             this._vm.MY_TEAM = this.team;
 
@@ -43,6 +44,9 @@ class Participant
             for (let p of participants){
                 this._vm.PARTICIPANTS.push(p.public);
                 this._vm.PARTICIPANT_MAP[p.public.name] = p.public;
+
+                if (typeof(this._vm.TEAM_COUNTS[p.team]) == "undefined") this._vm.TEAM_COUNTS[p.team] = 0;
+                this._vm.TEAM_COUNTS[p.team]++;
             }
         }
 
