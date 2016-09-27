@@ -35,14 +35,13 @@ class ControllerType
 
         do {
             oldCode = code;
-            code = code.replace(/^include\s*\(\s*['"]([^'"]+)['"]\s*\);?/, function(all, fileName){
+            code = code.replace(/^include\s*\(\s*['"]([^'"]+)['"]\s*\);?/gm, function(all, fileName){
                 if (/(apprentice|assassin|demon|test|wizard)\/[a-z0-9A-Z_-]+\.js/.exec(fileName)){
-                    return fs.readFileSync(__dirname + "/" + fileName);
+                    return fs.readFileSync(__dirname + "/controllers/" + fileName);
                 } else {
                     throw "Unable to load include file " + fileName;
                 }
             });
-
         } while(code != oldCode);
 
         this._script = new vm.Script(code);
