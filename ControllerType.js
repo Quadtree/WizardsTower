@@ -26,12 +26,26 @@ class ControllerType
             this.genes[k] += Math.random() * 0.1 - 0.05;
         }
 
-        this._script = new vm.Script(
-            '"use strict";\n' +
+        let code = '"use strict";\n' +
             "const SPELLS = " + JSON.stringify(SpellType.prototype.SPELLS) + ";\n" + 
             "const GENES = " + JSON.stringify(this.genes) + ";\n" +
-            fs.readFileSync(file)
-        );
+            fs.readFileSync(file);
+
+        let oldCode = null;
+
+        do {
+            oldCode = code;
+            code = code.replace(/^include\s*\(\s*['"]([^'"]+)['"]\s*\);?/, function(all, fileName){
+                if (/(apprentice|assassin|demon|test|wizard)\/[a-z0-9A-Z_-]+\.js/.exec(fileName)){
+                    return fs.readFileSync(__dirname + "/" + fileName);
+                } else {
+                    throw "Unable to load include file " + fileName;
+                }
+            });
+
+        } while(code != oldCode);
+
+        this._script = new vm.Script(code);
     }
 
     createVM(){
